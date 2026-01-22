@@ -1,301 +1,229 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout - roeya__store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - roeya__store</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #7a3b8f; /* خلفية قوية */
-      direction: rtl;
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    .checkout-page {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .checkout-wrapper {
-      display: flex;
-      gap: 30px;
-      width: 100%;
-      max-width: 1100px;
-      background: rgba(255,255,255,0.12); /* شفافية خفيفة */
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .checkout-left {
-      flex: 1;
-      padding: 40px;
-    }
-
-    .checkout-left h2 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .sub-title {
-      margin-top: 10px;
-      color: #f4e7f2;
-    }
-
-    .input-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 12px;
-      padding: 10px;
-      background: rgba(255,255,255,0.12);
-    }
-
-    .input-group i {
-      font-size: 18px;
-      color: #fff;
-    }
-
-    /* لون قوي لكل الحقول */
-    .checkout-left .input-group input,
-    .checkout-left .input-group select {
-      width: 100%;
-      font-size: 14px;
-      padding: 10px 12px;
-      height: 40px;
-      border: none;
-      outline: none;
-      background: #e38bb7; /* لون قوي */
-      color: #fff;
-      border-radius: 8px;
-    }
-
-    .checkout-left .input-group input::placeholder {
-      color: #ffe6f0;
-    }
-
-    .btn-submit {
-      margin-top: 25px;
-      width: 100%;
-      padding: 12px;
-      background: #fff;
-      color: #7a3b8f;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      font-weight: 700;
-    }
-
-    .btn-submit:hover {
-      background: #f2d9ef;
-    }
-
-    .checkout-right {
-      width: 350px;
-      background: rgba(255,255,255,0.12);
-      padding: 40px;
-    }
-
-    .checkout-right h3 {
-      margin: 0;
-      font-size: 22px;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .summary-card {
-      margin-top: 20px;
-      background: rgba(255,255,255,0.18);
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .summary-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #fff;
-    }
-
-    .summary-item.total {
-      font-weight: 700;
-      margin-top: 15px;
-      border-top: 1px solid rgba(255,255,255,0.2);
-      padding-top: 15px;
-    }
-
-    @media screen and (max-width: 900px) {
-      .checkout-wrapper {
-        flex-direction: column;
-      }
-      .checkout-right {
-        width: 100%;
-      }
-    }
-  </style>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#7a3b8f;
+  direction:rtl;
+}
+.checkout-page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.checkout-wrapper{
+  width:100%;
+  max-width:1100px;
+  display:flex;
+  gap:30px;
+  background:rgba(255,255,255,.12);
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,.25);
+  backdrop-filter:blur(10px);
+}
+.checkout-left{
+  flex:1;
+  padding:40px;
+}
+.checkout-left h2{
+  margin:0;
+  color:#fff;
+}
+.sub-title{
+  color:#f4e7f2;
+  margin-bottom:20px;
+}
+.input-group{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:15px;
+  background:rgba(255,255,255,.12);
+  padding:10px;
+  border-radius:12px;
+}
+.input-group i{
+  color:#fff;
+}
+.input-group input,
+.input-group select{
+  width:100%;
+  height:40px;
+  border:none;
+  outline:none;
+  background:#e38bb7;
+  color:#fff;
+  border-radius:8px;
+  padding:0 10px;
+}
+.input-group input::placeholder{
+  color:#ffe6f0;
+}
+.btn-submit{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  background:#fff;
+  color:#7a3b8f;
+  font-weight:700;
+  cursor:pointer;
+}
+.checkout-right{
+  width:350px;
+  padding:40px;
+  background:rgba(255,255,255,.12);
+}
+.checkout-right h3{
+  color:#fff;
+}
+.summary-card{
+  margin-top:20px;
+  background:rgba(255,255,255,.18);
+  padding:20px;
+  border-radius:12px;
+}
+.summary-item{
+  display:flex;
+  justify-content:space-between;
+  color:#fff;
+  margin-bottom:10px;
+}
+.summary-item.total{
+  border-top:1px solid rgba(255,255,255,.3);
+  padding-top:10px;
+  font-weight:700;
+}
+@media(max-width:900px){
+  .checkout-wrapper{flex-direction:column;}
+  .checkout-right{width:100%;}
+}
+</style>
 </head>
+
 <body>
 
 <div class="checkout-page">
-  <div class="checkout-wrapper">
-    <div class="checkout-left">
-      <h2>Checkout</h2>
-      <p class="sub-title">Fill your details to confirm your order</p>
+<div class="checkout-wrapper">
 
-      <form id="checkoutForm">
+<!-- LEFT -->
+<div class="checkout-left">
+<h2>Checkout</h2>
+<p class="sub-title">Fill your details to confirm your order</p>
 
-        <!-- Name -->
-        <div class="input-group">
-          <i class="fa-solid fa-user"></i>
-          <input type="text" id="name" placeholder="Full Name" required>
-        </div>
+<form id="checkoutForm">
 
-        <!-- Phone -->
-        <div class="input-group">
-          <i class="fa-solid fa-phone"></i>
-          <input type="tel" id="phone" placeholder="Phone Number" required>
-        </div>
+<div class="input-group">
+<i class="fa-solid fa-user"></i>
+<input type="text" id="name" placeholder="Full Name" required>
+</div>
 
-        <!-- Ville -->
-        <div class="input-group">
-          <i class="fa-solid fa-city"></i>
-          <select id="ville" required>
-            <option value="">Choose Ville</option>
-            <option value="Agadir">Agadir</option>
-            <option value="Ait Melloul">Ait Melloul</option>
-            <option value="Al Hoceima">Al Hoceima</option>
-            <option value="Azilal">Azilal</option>
-            <option value="Beni Mellal">Beni Mellal</option>
-            <option value="Berkane">Berkane</option>
-            <option value="Berrechid">Berrechid</option>
-            <option value="Boujdour">Boujdour</option>
-            <option value="Casablanca">Casablanca</option>
-            <option value="Chefchaouen">Chefchaouen</option>
-            <option value="El Jadida">El Jadida</option>
-            <option value="Errachidia">Errachidia</option>
-            <option value="Essaouira">Essaouira</option>
-            <option value="Fes">Fes</option>
-            <option value="Figuig">Figuig</option>
-            <option value="Guelmim">Guelmim</option>
-            <option value="Ifrane">Ifrane</option>
-            <option value="Kelaat Sraghna">Kelaat Sraghna</option>
-            <option value="Khemisset">Khemisset</option>
-            <option value="Khénifra">Khénifra</option>
-            <option value="Khouribga">Khouribga</option>
-            <option value="Ksar El Kebir">Ksar El Kebir</option>
-            <option value="Kénitra">Kénitra</option>
-            <option value="Laayoune">Laayoune</option>
-            <option value="Larache">Larache</option>
-            <option value="Marrakech">Marrakech</option>
-            <option value="Meknes">Meknes</option>
-            <option value="Mohammedia">Mohammedia</option>
-            <option value="Nador">Nador</option>
-            <option value="Ouarzazate">Ouarzazate</option>
-            <option value="Oujda">Oujda</option>
-            <option value="Rabat">Rabat</option>
-            <option value="Safi">Safi</option>
-            <option value="Settat">Settat</option>
-            <option value="Sidi Kacem">Sidi Kacem</option>
-            <option value="Sidi Ifni">Sidi Ifni</option>
-            <option value="Sidi Slimane">Sidi Slimane</option>
-            <option value="Sidi Bennour">Sidi Bennour</option>
-            <option value="Tan-Tan">Tan-Tan</option>
-            <option value="Tangier">Tangier</option>
-            <option value="Taza">Taza</option>
-            <option value="Tetouan">Tetouan</option>
-            <option value="Tiznit">Tiznit</option>
-          </select>
-        </div>
+<div class="input-group">
+<i class="fa-solid fa-phone"></i>
+<input type="tel" id="phone" placeholder="Phone Number" required>
+</div>
 
-        <!-- Size -->
-        <div class="input-group">
-          <i class="fa-solid fa-shirt"></i>
-          <select id="size" required>
-            <option value="">Choose Size</option>
-            <option value="S">S</option>
-            <option value="M">M</option>
-            <option value="L">L</option>
-            <option value="XL">XL</option>
-            <option value="XXL">XXL</option>
-            <option value="XXXL">XXXL</option>
-          </select>
-        </div>
+<div class="input-group">
+<i class="fa-solid fa-city"></i>
+<select id="ville" required>
+<option value="">Choose Ville</option>
+<option>Casablanca</option>
+<option>Rabat</option>
+<option>Marrakech</option>
+<option>Agadir</option>
+<option>Tangier</option>
+<option>Fes</option>
+<option>Oujda</option>
+<option>Kénitra</option>
+<option>Tetouan</option>
+<option>Laayoune</option>
+</select>
+</div>
 
-        <button type="submit" class="btn-submit">Place Order</button>
-      </form>
-    </div>
+<div class="input-group">
+<i class="fa-solid fa-shirt"></i>
+<select id="size" required>
+<option value="">Choose Size</option>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+<option>XXL</option>
+<option>XXXL</option>
+</select>
+</div>
 
-    <div class="checkout-right">
-      <h3>Winter order</h3>
-      <div class="summary-card">
-        <div class="summary-item">
-          <span>Subtotal</span>
-          <span id="subtotal">0 DH</span>
-        </div>
-        <div class="summary-item">
-          <span>livraison</span>
-          <span id="shipping">19 DH</span>
-        </div>
-        <div class="summary-item total">
-          <span>Total</span>
-          <span id="total">0 DH</span>
-        </div>
-      </div>
-    </div>
+<button class="btn-submit" type="submit">Place Order</button>
 
-  </div>
+</form>
+</div>
+
+<!-- RIGHT -->
+<div class="checkout-right">
+<h3>Winter Order</h3>
+
+<div class="summary-card">
+<div class="summary-item">
+<span>Subtotal</span>
+<span id="subtotal">0 DH</span>
+</div>
+
+<div class="summary-item">
+<span>Livraison</span>
+<span id="shipping">19 DH</span>
+</div>
+
+<div class="summary-item total">
+<span>Total</span>
+<span id="total">0 DH</span>
+</div>
+</div>
+</div>
+
+</div>
 </div>
 
 <script>
-  const subtotal = parseFloat(localStorage.getItem("total price")) || 0;
-  const shipping = 19;
-  const total = subtotal + shipping;
+/* ===== PRICE LOGIC ===== */
+const subtotal = parseFloat(localStorage.getItem("subtotal")) || 0;
+const shipping = 19;
+const total = subtotal + shipping;
 
-  document.getElementById("subtotal").innerText = `${subtotal.toFixed(2)} DH`;
-  document.getElementById("total").innerText = `${total.toFixed(2)} DH`;
+document.getElementById("subtotal").innerText = subtotal.toFixed(2) + " DH";
+document.getElementById("total").innerText = total.toFixed(2) + " DH";
 
-  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+/* ===== FORM SUBMIT ===== */
+document.getElementById("checkoutForm").addEventListener("submit", function(e){
+  e.preventDefault();
 
-    const name  = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const ville = document.getElementById("ville").value;
-    const size  = document.getElementById("size").value;
+  const name  = nameInput = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const ville = document.getElementById("ville").value;
+  const size  = document.getElementById("size").value;
 
-    if (!name || !phone || !ville || !size) {
-      alert("عافاك عمر جميع المعلومات");
-      return;
-    }
+  if(!name || !phone || !ville || !size){
+    alert("عافاك عمر جميع المعلومات");
+    return;
+  }
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  localStorage.setItem("order_name", name);
+  localStorage.setItem("order_phone", phone);
+  localStorage.setItem("order_ville", ville);
+  localStorage.setItem("order_size", size);
+  localStorage.setItem("order_total", total);
 
-    localStorage.setItem("order_name", name);
-    localStorage.setItem("order_phone", phone);
-    localStorage.setItem("order_ville", ville);
-    localStorage.setItem("order_size", size);
-    localStorage.setItem("order_total", total.toString());
-    localStorage.setItem("order_cart", JSON.stringify(cart));
-
-    window.location.href = "checkout-success.html";
-  });
+  window.location.href = "checkout-success.html";
+});
 </script>
 
 </body>
