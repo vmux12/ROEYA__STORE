@@ -1,6 +1,6 @@
 let cart = [];
 let products = [];
-let totalPrice = document.getElementById("total_price");
+let totalPriceElement = document.getElementById("total_price");
 let cartCounter = document.getElementById("cart-counter");
 let cartItemsCount = document.getElementById("cart_counts");
 const cartTextElements = document.querySelectorAll(".cart_products");
@@ -11,12 +11,14 @@ loadCart();
 getData();
 checkCart();
 
+// جلب المنتجات من JSON
 async function getData() {
     let response = await fetch('json/products.json');
     let json = await response.json();
     products = json;
 }
 
+// تحميل الكارت من localStorage
 function loadCart() {
     let storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -24,16 +26,18 @@ function loadCart() {
     }
 }
 
+// حفظ الكارت في localStorage
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// إضافة منتج للكارت
 function addToCart(productId, inputQuantity = 1) {
     let product = products.find(p => p.id == productId);
     if (product) {
         let existingProduct = cart.find(p => p.id == productId);
         if (existingProduct) {
-            existingProduct.quantity += 1;
+            existingProduct.quantity += inputQuantity;
         } else {
             let productWithQuantity = { ...product, quantity: inputQuantity };
             cart.push(productWithQuantity);
@@ -43,10 +47,11 @@ function addToCart(productId, inputQuantity = 1) {
     }
 }
 
+// عرض الكارت في HTML
 function addCartToHTML() {
     let content = ``;
     cart.forEach((product, index) => {
-        let price = parseFloat(product.price);  // **DH**
+        let price = parseFloat(product.price);
         let totalPrice = price * product.quantity;
         content += `
         <div class="cart_product">
@@ -70,7 +75,7 @@ function addCartToHTML() {
                             class="product_count" value=${product.quantity}>
                         <button class="counts_btns plus" onclick="increaseQuantity(${index})">+</button>
                     </div>
-                    <span class="total_price">${totalPrice} DH</span>
+                    <span class="total_price">${totalPrice.toFixed(2)} DH</span>
                 </div>
             </div>
         </div>`;
@@ -81,12 +86,14 @@ function addCartToHTML() {
     });
 }
 
+// حذف منتج من الكارت
 function removeFromCart(index) {
     cart.splice(index, 1);
     saveCart();
     checkCart();
 }
 
+// زيادة/نقص الكمية
 function increaseQuantity(index){
     cart[index].quantity += 1;
     saveCart();
@@ -103,26 +110,28 @@ function decreaseQuantity(index) {
     }
 }
 
+// حساب subtotal بدون توصيل
 function updateTotalPrice() {
-    let total = cart.reduce((sum, product) => {
-        let price = parseFloat(product.price); // **DH**
+    let subtotal = cart.reduce((sum, product) => {
+        let price = parseFloat(product.price);
         return sum + (price * product.quantity);
     }, 0);
 
-    totalPrice.innerHTML = `${total.toFixed(2)} DH`;
+    totalPriceElement.innerHTML = `${subtotal.toFixed(2)} DH`;
 
-    // ❌ ما نخزّنش التوصيل هنا
-    localStorage.setItem("total price", total);
+    // خزّن فقط subtotal
+    localStorage.setItem("subtotal", subtotal.toFixed(2));
 
-    return total;
+    return subtotal;
 }
 
+// التحقق من حالة الكارت
 function checkCart(){
     if (cart.length == 0) {
         cartTextElements.forEach(element => {
             element.classList.add("empty");
             element.innerHTML = "Your cart is empty";
-        })
+        });
         cartCounter.innerHTML = 0;
         btnControl.style.display = "none";
         cartTotal.style.display = "none";
@@ -130,49 +139,53 @@ function checkCart(){
     } else {
         cartTextElements.forEach(element => {
             element.classList.remove("empty");
-        })
+        });
         addCartToHTML();
         let totalQuantity = cart.reduce((sum, product) => sum + product.quantity, 0);
         cartCounter.innerHTML = totalQuantity;
         btnControl.style.display = "flex";
         cartTotal.style.display = "flex";
-        let total = updateTotalPrice();
-        checkCartPage(total,totalQuantity);       
+        let subtotal = updateTotalPrice();
+        checkCartPage(subtotal,totalQuantity);       
     }
 }
 
-function checkCartPage(total,totalQuantity){
+// تحديث صفحة cartPage
+function checkCartPage(subtotal,totalQuantity){
     if (window.location.pathname.includes("cartPage.html")) {
         if (cart.length == 0) {
             cartItemsCount.innerHTML = `(0 items)`;
             document.getElementById("Subtotal").innerHTML = `0 DH`;
             document.getElementById("total_order").innerHTML = `0 DH`;
-        }
-        else{
+        } else {
             cartItemsCount.innerHTML = `(${totalQuantity} items)`;
-            displayInCartPage(total);
+            displayInCartPage(subtotal);
         }
     }
 }
 
-function displayInCartPage(total){
-    let subTotal = document.getElementById("Subtotal");
-    subTotal.innerHTML = `${total.toFixed(2)} DH`;
+// عرض subtotal + total مع التوصيل في cartPage
+function displayInCartPage(subtotal){
+    let subTotalElement = document.getElementById("Subtotal");
+    subTotalElement.innerHTML = `${subtotal.toFixed(2)} DH`;
 
-    // التوصيل هنا فقط فـ العرض
-    let totalOrder = total + 19;
+    const delivery = 19;
+    let totalOrder = subtotal + delivery;
+
+    document.getElementById("Delivery").innerHTML = `${delivery.toFixed(2)} DH`;
     document.getElementById("total_order").innerHTML = `${totalOrder.toFixed(2)} DH`;
 }
 
+// Checkout
 function checkOut(){
-    let email = localStorage.getItem('email');
-    let password = localStorage.getItem('password');
-    if (cart.length != 0) {
+    const email = localStorage.getItem('email');
+    const password = localStorage.getItem('password');
+
+    if(cart.length !== 0){
         if(email && password){
-          window.location.href = "checkout.html";
+            window.location.href = "checkout.html";
+        } else {
+            window.location.href = "login.html";
         }
-        else {
-          window.location.href = "login.html";
-        }
-     }
+    }
 }
