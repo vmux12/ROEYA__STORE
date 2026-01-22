@@ -1,23 +1,29 @@
 <script>
-  const name = localStorage.getItem("order_name");
-  const phone = localStorage.getItem("order_phone");
-  const ville = localStorage.getItem("order_ville");
-  const size = localStorage.getItem("order_size");
+  // معلومات الزبون
+  const name  = localStorage.getItem("order_name")  || "";
+  const phone = localStorage.getItem("order_phone") || "";
+  const ville = localStorage.getItem("order_ville") || "";
+  const size  = localStorage.getItem("order_size")  || "";
 
-  // هنا كنجيبو total بشكل آمن
+  // المجموع
   const total = parseFloat(localStorage.getItem("total price")) || 0;
 
+  // الكارت
   const cart = JSON.parse(localStorage.getItem("order_cart")) || [];
+
+  // رابط الموقع
   const baseURL = "https://vmux12.github.io/ROEYA__STORE/";
 
+  // نص المنتجات
   let cartText = "";
   cart.forEach((item, index) => {
     cartText += `${index + 1}) ${item.name} × ${item.quantity} - ${item.price} DH\n`;
     cartText += `🔗 صورة المنتج: ${baseURL}${item.images[0]}\n\n`;
   });
 
-  const message =
-`🛍️ *طلب جديد من ROEYA__SHOP*
+  // الرسالة
+  const message = 
+`🛍️ *طلب جديد من ROEYA__SHOPS*
 --------------------------------
 👤 *الاسم:* ${name}
 📞 *الهاتف:* ${phone}
@@ -25,18 +31,16 @@
 📏 *المقاس:* ${size}
 💰 *المجموع:* ${total.toFixed(2)} DH
 
-📦 *المنتجات:*
+📦 *المنتجات (صور بالروابط):*
 ${cartText}
 
-📌 *ملاحظة:* غادي نتاصل بك لتأكيد الطلب ❤️
+📌 *ملاحظة:* غادي نتواصل معك لتأكيد الطلب ❤️
 `;
 
+  // رقم واتساب (بدون +)
   const whatsappNumber = "212775658033";
-  const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
 
+  // تحويل لواتساب
+  const url = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(message)}`;
   window.location.href = url;
 </script>
-
-
-
-
