@@ -1,28 +1,32 @@
-document.getElementById("confirmOrder").addEventListener("click", function (e) {
-  e.preventDefault();
+const subtotal = parseFloat(localStorage.getItem("subtotal")) || 0;
+const shipping = 19;
+const total = subtotal + shipping;
 
-  const name = document.getElementById("name").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const ville = document.getElementById("ville").value.trim();
-  const size = document.getElementById("size").value.trim();
+document.getElementById("subtotal").innerText = `${subtotal.toFixed(2)} DH`;
+document.getElementById("shipping").innerText = `${shipping.toFixed(2)} DH`;
+document.getElementById("total").innerText = `${total.toFixed(2)} DH`;
 
-  // validation
-  if (!name || !phone || !ville || !size) {
-    alert("من فضلك عَمّر جميع الحقول");
-    return;
-  }
+document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-  const total = localStorage.getItem("total price");
-  const cart = localStorage.getItem("cart");
+    const name  = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const ville = document.getElementById("ville").value;
+    const size  = document.getElementById("size").value;
 
-  // تخزين المعطيات
-  localStorage.setItem("order_name", name);
-  localStorage.setItem("order_phone", phone);
-  localStorage.setItem("order_ville", ville);
-  localStorage.setItem("order_size", size);
-  localStorage.setItem("order_total", total);
-  localStorage.setItem("order_cart", cart);
+    if (!name || !phone || !ville || !size) {
+        alert("عافاك عمر جميع المعلومات");
+        return;
+    }
 
-  // مشي لصفحة النجاح
-  window.location.href = "checkout-success.html";
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    localStorage.setItem("order_name", name);
+    localStorage.setItem("order_phone", phone);
+    localStorage.setItem("order_ville", ville);
+    localStorage.setItem("order_size", size);
+    localStorage.setItem("order_total", total.toFixed(2));
+    localStorage.setItem("order_cart", JSON.stringify(cart));
+
+    window.location.href = "checkout-success.html";
 });
