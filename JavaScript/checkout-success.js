@@ -28,7 +28,7 @@ function showCheckAnimation(){
     container: newCheckIcon,
     renderer: 'svg',
     loop: false,
-    autoplay: true,
+    autoplay: false,
     path: 'json/AnimationCheckoutPage.json'
   });
 }
@@ -54,3 +54,4 @@ function clearCart() {
 function backHome() {
   window.location.href = "index.html";
 }
+
