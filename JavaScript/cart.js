@@ -160,7 +160,7 @@ function displayInCartPage(total){
     subTotal.innerHTML = `${total.toFixed(2)} DH`;
 
     // التوصيل هنا فقط فـ العرض
-    let totalOrder = total + 70;
+    let totalOrder = total + 19;
     document.getElementById("total_order").innerHTML = `${totalOrder.toFixed(2)} DH`;
 }
 
